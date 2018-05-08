@@ -5,8 +5,6 @@
 
 #include "diag/Trace.h"
 #include "delay.h"
-//#include "i2c.h"
-//#include "pcf8574.h"
 #include "ext_int.h"
 #include "timer.h"
 #include "spi.h"
@@ -29,7 +27,6 @@ int
 main(int argc, char* argv[])
 {
 	blink_init();
-	//hw_i2c_init();
 	hw_eint_init();
 	hw_timer_init();
 	timer_start();
@@ -51,10 +48,7 @@ main(int argc, char* argv[])
 void blink_init(void){
 	  GPIO_InitTypeDef  GPIO_InitStructure;
 
-	  /* Initialize LED which connected to PC13 */
-	  // Enable PORTC Clock
 	  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
-	  /* Configure the GPIO_LED pin */
 	  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
 	  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
 	  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
@@ -99,8 +93,6 @@ void show_cnt(void){
         urh = diff * 0.3;
         sprintf(buffer, "%6.1f", urh);
         lcd5110_print(buffer, strlen(buffer), 0, 2, 1);
-/*        strcat(buffer, " uR/h");
-        lcd_string(buffer, strlen(buffer),  LCD_LINE_2 );*/
 }
 
 void tim4IRQ(void){
